@@ -1,0 +1,24 @@
+{% extends 'stories/base.html' %}
+<!-- {% load static %} -->
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block body %}
+{% for story in stories %}
+<br />
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ story.title }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Unique id: #{{ story.id }}</h6>
+    <!-- <p class="card-text">{{ story.content }}</p> -->
+    <a class="card-link" href="{% url 'single-story' story.id %}">View story</a>
+  </div>
+</div>
+
+{% endfor %}
+<br />
+
+{% endblock body %}

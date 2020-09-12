@@ -1,0 +1,53 @@
+{% extends 'stories/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block back_link %}
+    <a class="white-link" href="{% url 'storyhome' %}">Back</a>
+{% endblock back_link %}
+
+{% block body %}
+
+    <div>
+        <h3>{{ story.title }}</h3>
+        <p>{{ story.content }}</p>
+        <h5>Total Read Count - <span id="total-count">{{ all_viewers.count }}</span></h5>
+        <h5>Active Viewers - <span id="active-count">{{ current_viewers.count }}</span> (including you)</h5>
+    </div>
+
+
+{% endblock body %}
+
+
+{% block js %}
+<script>
+    function loadViewerData(url, id, elementID) {
+        const xhr = new XMLHttpRequest();
+        const method = "GET";
+        const responseType = "json";
+
+        xhr.responseType = responseType;
+        xhr.open(method, url+id);
+        xhr.onload = function () {
+            console.log(xhr.response);
+        document.getElementById(elementID).innerHTML = xhr.response.length;
+        };
+        xhr.send();
+    }
+    window.setInterval(function(){
+        loadViewerData(
+            "/story/api/currentviewers/",
+            "{{story.id}}",
+            "active-count"
+        );
+        loadViewerData(
+            "/story/api/totalviewers/",
+            "{{story.id}}",
+            "total-count"
+        );
+    }, 5000);
+</script>
+{% endblock js %}

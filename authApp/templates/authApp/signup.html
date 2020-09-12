@@ -1,0 +1,13 @@
+{% extends 'authApp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<h1>Signup to ReadCount!</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-success" type="submit">Signup now!</button>
+</form>
+
+<p>Already have an account? <a href="{% url 'login' %}"><b>Login Instead!</b></a></p>
+{% endblock body %}
