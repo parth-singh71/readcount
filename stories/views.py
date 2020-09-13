@@ -40,7 +40,7 @@ def get_all_storyviewers(story):
 
 
 def get_current_story_viewers(story):
-    time = timezone.now() - datetime.timedelta(seconds=10)
+    time = timezone.now() - datetime.timedelta(seconds=30)
     return StoryView.objects.filter(story=story, last_seen__gte=time)
 
 
@@ -77,11 +77,6 @@ class CurrentStoryViewersView(APIView):
     def get(self, request, id=None):
         if id:
             story = Story.objects.get(id=id)
-            # if request.user.is_authenticated:
-            #     user = request.user
-            #     if not check_if_storyview_exists(user, story):
-            #         storyview = StoryView(user=user, story=story)
-            #         storyview.save()
             update_last_seen(request.user, story)
             current_story_viewers = get_current_story_viewers(story)
             serializer = StoryViewSerializer(
@@ -94,12 +89,6 @@ class TotalStoryViewersView(APIView):
     def get(self, request, id=None):
         if id:
             story = Story.objects.get(id=id)
-            # if request.user.is_authenticated:
-            #     user = request.user
-            #     if not check_if_storyview_exists(user, story):
-            #         storyview = StoryView(user=user, story=story)
-            #         storyview.save()
-            # update_last_seen(request.user, story)
             all_viewers = get_all_storyviewers(story)
             serializer = StoryViewSerializer(
                 all_viewers, many=True, context={'request': request})

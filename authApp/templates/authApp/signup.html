@@ -8,6 +8,11 @@
     {{ form|crispy }}
     <button class="btn btn-success" type="submit">Signup now!</button>
 </form>
-
+<br/>
 <p>Already have an account? <a href="{% url 'login' %}"><b>Login Instead!</b></a></p>
+<div class="alert alert-primary" role="alert">
+    <h5><b>Note:</b></h5>
+    After <b>signup</b> you will be redirected to the <b>login page</b> where you can enter your <b>credentials</b> to access the stories.
+</div>
+<br/>
 {% endblock body %}

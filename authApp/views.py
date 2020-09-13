@@ -12,8 +12,7 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(
-                request, f'Your account has been created! Please login to continue.')
+            messages.success(request, f'Your account has been created! Please login to continue.')
             return redirect('login')
     else:
         form = RegistrationForm()

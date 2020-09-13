@@ -14,8 +14,15 @@
     <div>
         <h3>{{ story.title }}</h3>
         <p>{{ story.content }}</p>
+        <br/>
         <h5>Total Read Count - <span id="total-count">{{ all_viewers.count }}</span></h5>
         <h5>Active Viewers - <span id="active-count">{{ current_viewers.count }}</span> (including you)</h5>
+        <br/>
+        <div class="alert alert-primary" role="alert">
+            <h5><b>Note:</b></h5>
+            It may take <b>30 seconds</b> to <b>1 minute</b> for the <b>total read count</b> and <b>active viewers</b> to automatically update. This <b>limitation</b> is due to the <b>constraints</b> put on the free version of the cloud server!
+        </div>
+        <br/>
     </div>
 
 
@@ -48,6 +55,6 @@
             "{{story.id}}",
             "total-count"
         );
-    }, 5000);
+    }, 30000);
 </script>
 {% endblock js %}
